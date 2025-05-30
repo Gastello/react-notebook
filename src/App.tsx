@@ -1,6 +1,8 @@
 import "./App.css";
+import CodeSnippet from "./components/codeSnippet/CodeSnippet";
 import Header from "./components/header/Header";
 import Topic from "./components/topic/Topic";
+import Code from "./components/code/Code";
 
 function App() {
   return (
@@ -30,20 +32,20 @@ function App() {
             Як створити компонент?
           </div>
           <p>Створи `.jsx` або `.tsx` файл і експортуй функцію:</p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`function Header() {
-            return <header>...</header>;
-          }
+          <Code
+            code="function Header() {
+  return <header>...</header>;
+}
 
-export default Header;`}</code>
-          </pre>
+export default Header;"
+          />
 
           <div className="text-[20px] font-semibold mt-[10px]">
             Як використати компонент?
           </div>
           <p>Імпортуй і використовуй у JSX як HTML-тег:</p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`import Header from './components/Header';
+          <Code
+            code='import Header from "./components/Header";
 
 function App() {
   return (
@@ -51,8 +53,8 @@ function App() {
       <Header />
     </>
   );
-}`}</code>
-          </pre>
+}'
+          />
 
           <div className="text-[20px] font-semibold mt-[10px]">JSX</div>
           <p>
@@ -80,13 +82,16 @@ function App() {
           <div className="text-[20px] font-semibold mt-[10px]">
             Приклад передачі props
           </div>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`function Welcome(props) {
-  return <h1>Привіт, {props.name}!</h1>;
-}
 
-<Welcome name="Gastello" />`}</code>
-          </pre>
+          <CodeSnippet
+            code='export function Welcome(props: welcomeProps) {
+  return <h1>Привіт, {props.name}!</h1>;
+};
+
+<Welcome name="Gastello"/>
+'
+            result="Привіт, Gastello!"
+          />
 
           <div className="text-[20px] font-semibold mt-[10px]">
             Деструктуризація props
@@ -95,11 +100,12 @@ function App() {
             Замість <code>props.name</code> часто використовують
             деструктуризацію:
           </p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`function Welcome({ name }) {
+          <CodeSnippet
+            code={`function Welcome({ name }) {
   return <h1>Привіт, {name}!</h1>;
-}`}</code>
-          </pre>
+}`}
+            result="Привіт, Gastello!"
+          />
 
           <div className="text-[20px] font-semibold mt-[10px]">
             Що таке children?
@@ -109,15 +115,20 @@ function App() {
             JSX-контент, переданий між відкриваючим і закриваючим тегом
             компонента.
           </p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`function Card({ children }) {
-    return <div className="card">{children}</div>;
-  }
+          <CodeSnippet
+            code={`function Card({ children }) {
+  return <div className="card">{children}</div>;
+}
 
-  <Card>
-    <p>Привіт зсередини!</p>
-  </Card>`}</code>
-          </pre>
+<Card>
+  <p>Привіт зсередини!</p>
+</Card>`}
+            result={
+              <div className="card">
+                <p>Привіт зсередини!</p>
+              </div>
+            }
+          />
 
           <div className="text-[20px] font-semibold mt-[10px]">
             Типізація props у TypeScript
@@ -126,23 +137,23 @@ function App() {
             Для безпечної роботи з props у TypeScript використовують інтерфейси
             або типи:
           </p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`type TopicProps = {
+          <Code
+            code="type TopicProps = {
     title: string;
     children: React.ReactNode;
-  };`}</code>
-          </pre>
+  };"
+          />
           <p>І передають у компонент так:</p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`function Topic({ title, children }: TopicProps) {
+          <Code
+            code="function Topic({ title, children }: TopicProps) {
     return (
       <section>
         <h2>{title}</h2>
         {children}
       </section>
     );
-  }`}</code>
-          </pre>
+  }"
+          />
         </Topic>
         <Topic title="useState і керування станом">
           <div className="text-[20px] font-semibold mt-0">
@@ -156,9 +167,7 @@ function App() {
             Він повертає масив з двох значень: поточне значення стану і функцію
             для його оновлення:
           </p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`const [state, setState] = useState(initialValue);`}</code>
-          </pre>
+          <Code code="const [state, setState] = useState(initialValue);" />
 
           <div className="text-[20px] font-semibold mt-[10px]">
             Приклад: розгортання/згортання вмісту
@@ -167,8 +176,8 @@ function App() {
             Ми можемо використати <code>useState</code>, щоб показувати або
             приховувати контент при кліку:
           </p>
-          <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
-            <code>{`function Topic({ title, children }: TopicProps) {
+          <Code
+            code="function Topic({ title, children }: TopicProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleVisibility = () => {
@@ -183,8 +192,8 @@ function App() {
       {isOpen && <div>{children}</div>}
     </div>
   );
-}`}</code>
-          </pre>
+}"
+          />
 
           <div className="text-[20px] font-semibold mt-[10px]">
             Чому краще <code>setIsOpen(prev =&gt; !prev)</code>, а не{" "}
@@ -209,6 +218,69 @@ function App() {
           <p>
             Це критично важливо, коли кілька оновлень стану можуть відбуватися
             швидко або одночасно.
+          </p>
+        </Topic>
+        <Topic title="React Developer Tools">
+          <div className="text-[20px] font-semibold mt-0">
+            Що таке React Developer Tools?
+          </div>
+          <p>
+            Це офіційне розширення для браузера (Chrome / Firefox), яке дозволяє
+            досліджувати React-компоненти прямо на сторінці.
+          </p>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Як встановити?
+          </div>
+          <ul className="list-disc list-inside">
+            <li>Перейди в Chrome Web Store або Firefox Add-ons.</li>
+            <li>
+              Знайди <strong>React Developer Tools</strong>.
+            </li>
+            <li>Встанови як звичайне розширення.</li>
+          </ul>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Що дозволяє робити?
+          </div>
+          <ul className="list-disc list-inside">
+            <li>
+              Переглядати дерево React-компонентів у вкладці{" "}
+              <code>⚛️ Components</code>.
+            </li>
+            <li>Дивитися значення props і state кожного компонента.</li>
+            <li>
+              Редагувати props/state в реальному часі (для тестування UI).
+            </li>
+            <li>
+              Аналізувати performance у вкладці <code>⚛️ Profiler</code>.
+            </li>
+          </ul>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Чому це важливо?
+          </div>
+          <p>
+            Без цього інструменту ти як React-розробник працюєш «наосліп». Він
+            критично важливий для налагодження і розуміння, як реально
+            поводиться твій код.
+          </p>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Швидкий приклад
+          </div>
+          <p>Якщо у тебе є компонент з пропами:</p>
+          <CodeSnippet
+            code={`function Welcome({ name }) {
+  return <>Привіт, {name}!</>;
+}
+
+<Welcome name="Gastello" />`}
+            result="Привіт, Gastello!"
+          />
+          <p>
+            У React Developer Tools ти побачиш компонент <code>Welcome</code> і
+            проп <code>name: &quot;Gastello&quot;</code> прямо в браузері.
           </p>
         </Topic>
       </div>
