@@ -1,10 +1,13 @@
-import "./App.css";
 import CodeSnippet from "./components/codeSnippet/CodeSnippet";
 import Header from "./components/header/Header";
 import Topic from "./components/topic/Topic";
 import Code from "./components/code/Code";
+import LifeCycleComponent from "./components/lifyCycleComponent/LifeCycleComponent";
+import { useState } from "react";
 
 function App() {
+  const [isLifeCycleComponentVisible, setIsLifeCycleComponentVisible] =
+    useState(false);
   return (
     <>
       <Header />
@@ -282,6 +285,312 @@ function App() {
             У React Developer Tools ти побачиш компонент <code>Welcome</code> і
             проп <code>name: &quot;Gastello&quot;</code> прямо в браузері.
           </p>
+        </Topic>
+        <Topic title="CSS у React">
+          <div className="text-[20px] font-semibold mt-0">
+            Основні способи стилізації
+          </div>
+          <p>У React існує кілька підходів до стилізації компонентів:</p>
+          <ul className="list-disc list-inside">
+            <li>CSS Modules</li>
+            <li>Бібліотека classnames</li>
+            <li>Styled-components</li>
+            <li>UI-бібліотеки (Bootstrap, MUI)</li>
+            <li>Utility-first CSS (Tailwind CSS)</li>
+          </ul>
+
+          <div className="text-[20px] font-semibold mt-[10px]">CSS Modules</div>
+          <p>
+            Дає можливість інкапсулювати стилі для кожного компонента окремо.
+            Імпортується як об&apos;єкт, а класи використовуються через{" "}
+            <code>className={`{classes["ім'я-класу"]}`}</code>.
+          </p>
+          <CodeSnippet
+            code={`// Button.module.css
+.button {
+  background-color: blue;
+  color: white;
+}
+
+// Button.tsx
+import classes from './Button.module.css';
+
+function Button() {
+  return <button className={classes["button"]}>Натисни</button>;
+}`}
+            result={
+              <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                Натисни
+              </button>
+            }
+          />
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            classnames (npm)
+          </div>
+          <p>
+            Дозволяє динамічно формувати <code>className</code> зі змінних. У
+            React це корисно для умовного застосування стилів.
+          </p>
+          <CodeSnippet
+            code={`import classNames from 'classnames';
+
+function Button({ primary }) {
+  const btnClass = classNames('btn', { 'btn-primary': primary });
+  return <button className={btnClass}>Натисни</button>;
+}`}
+            result={
+              <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                Натисни
+              </button>
+            }
+          />
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Styled-components
+          </div>
+          <p>
+            Підхід CSS-in-JS. Стилі описуються прямо в JS-файлі. Працює лише
+            після встановлення бібліотеки <code>styled-components</code>.
+          </p>
+          <CodeSnippet
+            code={`import styled from 'styled-components';
+
+const Button = styled.button\`
+  background-color: blue;
+  color: white;
+\`;
+
+function App() {
+  return <Button>Натисни</Button>;
+}`}
+            result={
+              <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                Натисни
+              </button>
+            }
+          />
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Bootstrap (npm)
+          </div>
+          <p>
+            Bootstrap — популярна CSS-бібліотека. У JSX клас прописується через{" "}
+            <code>className</code>, напр.{" "}
+            <code>&quot;btn btn-primary&quot;</code>.
+          </p>
+          <CodeSnippet
+            code={`function Button() {
+  return <button className="btn btn-primary">Натисни</button>;
+}`}
+            result={
+              <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                Натисни
+              </button>
+            }
+          />
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Material UI (MUI)
+          </div>
+          <p>
+            MUI — компонентна UI-бібліотека з вбудованими стилями. Працює після
+            підключення через npm.
+          </p>
+          <CodeSnippet
+            code={`import Button from '@mui/material/Button';
+
+function App() {
+  return <Button variant="contained">Натисни</Button>;
+}`}
+            result={
+              <button className="bg-blue-500 text-white px-2 py-1 rounded">
+                Натисни
+              </button>
+            }
+          />
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Tailwind CSS
+          </div>
+          <p>
+            Tailwind — utility-first підхід, коли стилі задаються напряму в{" "}
+            <code>className</code> через утилітні класи.
+          </p>
+          <CodeSnippet
+            code={`function Button() {
+  return <button className="bg-blue-500 text-white px-4 py-2 rounded">Натисни</button>;
+}`}
+            result={
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                Натисни
+              </button>
+            }
+          />
+        </Topic>
+        <Topic title="Class Component && Component Lifecycle">
+          <div className="text-[20px] font-semibold mt-0">
+            Компоненти як функції та класи
+          </div>
+          <p>У React можна створювати компоненти двома способами:</p>
+          <ul className="list-disc list-inside">
+            <li>
+              <strong>Функціональні компоненти</strong> — прості, короткі,
+              використовуються в 95% випадків з хуками.
+            </li>
+            <li>
+              <strong>Класові компоненти</strong> — старіший підхід, але все ще
+              використовується, особливо для роботи з життєвим циклом.
+            </li>
+          </ul>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Що таке життєвий цикл?
+          </div>
+          <p>
+            Компонент проходить кілька етапів під час свого &quot;життя&quot; в
+            DOM: створення, оновлення та знищення. Кожен з них має свої методи
+            життєвого циклу.
+          </p>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Життєвий цикл класового компонента
+          </div>
+          <ul className="list-disc list-inside">
+            <li>
+              <code>constructor</code> — ініціалізація стану, викликається
+              першим.
+            </li>
+            <li>
+              <code>getDerivedStateFromProps</code> — (static) викликається
+              перед рендером при оновленні props або state. Застосовується
+              рідко, зазвичай для синхронізації state з props. Не має доступу до
+              this, бо є статичним методом.
+            </li>
+            <li>
+              <code>componentWillMount ⚠️</code> — застарілий метод, викликався
+              перед render, але вилучений у Strict Mode. Його використовували
+              для початкової логіки до першого рендеру, але зараз замінюється на
+              constructor або getDerivedStateFromProps.
+            </li>
+            <li>
+              <code>render</code> — обов&#39;язковий метод, повертає JSX.
+            </li>
+            <li>
+              <code>componentDidMount</code> — викликається один раз після
+              монтування компонента.
+            </li>
+            <li>
+              <code>shouldComponentUpdate</code> — дає змогу оптимізувати
+              оновлення (рідко використовується вручну).
+            </li>
+            <li>
+              <code>componentDidUpdate</code> — викликається після оновлення
+              props або state.
+            </li>
+            <li>
+              <code>componentWillUnmount</code> — викликається перед видаленням
+              компонента з DOM.
+            </li>
+          </ul>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Приклад життєвого циклу
+          </div>
+          <p>
+            Нижче — приклад класового компонента, який демонструє ключові етапи:
+          </p>
+
+          <Code
+            code={`class LifeCycleComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: 0 };
+    console.log('constructor');
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('getDerivedStateFromProps');
+    return state;
+  }
+
+  render() {
+    console.log('render');
+    return (
+      <button onClick={() => this.setState({ value: this.state.value + 1 })}>
+        {this.props.text} {this.state.value}
+      </button>
+    );
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+}`}
+          />
+          <div className="flex">
+            <button
+              onClick={() => {
+                setIsLifeCycleComponentVisible((prev) => !prev);
+              }}
+              className="p-2 bg-red-500 text-white rounded-md cursor-pointer mx-auto my-0 mt-2.5"
+            >
+              {isLifeCycleComponentVisible ? "Delete" : "Create"} Component
+            </button>
+          </div>
+          {isLifeCycleComponentVisible && (
+            <>
+              <LifeCycleComponent text="Update Component" />
+              <p className="text-center italic text-xs">check console</p>
+            </>
+          )}
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Коли який метод викликається?
+          </div>
+          <ul className="list-disc list-inside">
+            <li>
+              <strong>Mounting:</strong> constructor → getDerivedStateFromProps
+              → render → componentDidMount
+            </li>
+            <li>
+              <strong>Updating:</strong> getDerivedStateFromProps →
+              shouldComponentUpdate → render → componentDidUpdate
+            </li>
+            <li>
+              <strong>Unmounting:</strong> componentWillUnmount
+            </li>
+          </ul>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Навіщо це потрібно?
+          </div>
+          <ul className="list-disc list-inside">
+            <li>Отримувати дані з API після монтування (componentDidMount)</li>
+            <li>
+              Очищати таймери, підписки при видаленні (componentWillUnmount)
+            </li>
+            <li>Оптимізовувати рендери (shouldComponentUpdate)</li>
+            <li>Реагувати на зміну props/state (componentDidUpdate)</li>
+            <li>
+              Синхронізувати стан зі змінами props (getDerivedStateFromProps) —
+              викликається перед рендером, коли змінилися props або state.
+              Застосовується для оновлення внутрішнього state на основі вхідних
+              props.
+            </li>
+          </ul>
         </Topic>
       </div>
     </>
