@@ -2,13 +2,25 @@ import CodeSnippet from "./components/codeSnippet/CodeSnippet";
 import Header from "./components/header/Header";
 import Topic from "./components/topic/Topic";
 import Code from "./components/code/Code";
-import LifeCycleComponent from "./components/lifyCycleComponent/LifeCycleComponent";
+import LifeCycleComponent from "./components/lifeCycleClassComponent/LifeCycleClassComponent";
 import { useState } from "react";
 import ClassButtonCounter from "./components/classButtonCounter/ClassButtonCounter";
+import LifeCycleFunctionComponent from "./components/lifeCycleFunctionComponent/LifeCycleFunctionComponent";
+import MemoExample from "./components/memoExample/MemoExample";
+import PureComponentExample from "./components/pureComponentExample/PureComponentExample";
 
 function App() {
-  const [isLifeCycleComponentVisible, setIsLifeCycleComponentVisible] =
+  const [
+    isLifeCycleClassComponentVisible,
+    setIsLifeCycleClassComponentVisible,
+  ] = useState(false);
+  const [
+    isLifeCycleFunctionComponentVisible,
+    setIsLifeCycleFunctionComponentVisible,
+  ] = useState(false);
+  const [isPureComponentExampleVisible, setIsPureComponentExampleVisible] =
     useState(false);
+  const [isMemoExampleVisible, setIsMemoExampleVisible] = useState(false);
   return (
     <>
       <Header />
@@ -733,8 +745,7 @@ class Example extends React.Component<{}, State> {
             більше гнучкості.
           </p>
         </Topic>
-
-        <Topic title="Component Lifecycle">
+        <Topic title="Component Lifecycle. PureComponent & memo">
           <div className="text-[20px] font-semibold mt-[10px]">
             Що таке життєвий цикл?
           </div>
@@ -786,7 +797,7 @@ class Example extends React.Component<{}, State> {
           </ul>
 
           <div className="text-[20px] font-semibold mt-[10px]">
-            Приклад життєвого циклу
+            Приклад життєвого циклу класового компонента
           </div>
           <p>
             Нижче — приклад класового компонента, який демонструє ключові етапи:
@@ -835,14 +846,14 @@ class Example extends React.Component<{}, State> {
           <div className="flex">
             <button
               onClick={() => {
-                setIsLifeCycleComponentVisible((prev) => !prev);
+                setIsLifeCycleClassComponentVisible((prev) => !prev);
               }}
               className="p-2 bg-red-500 text-white rounded-md cursor-pointer mx-auto my-0 mt-2.5"
             >
-              {isLifeCycleComponentVisible ? "Delete" : "Create"} Component
+              {isLifeCycleClassComponentVisible ? "Delete" : "Create"} Component
             </button>
           </div>
-          {isLifeCycleComponentVisible && (
+          {isLifeCycleClassComponentVisible && (
             <>
               <LifeCycleComponent text="Update Component" />
               <p className="text-center italic text-xs">check console</p>
@@ -882,6 +893,409 @@ class Example extends React.Component<{}, State> {
               props.
             </li>
           </ul>
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Життєвий цикл функціонального компонента
+          </div>
+          <p>
+            Функціональні компоненти не мають класичного життєвого циклу.
+            Замість цього для виконання побічних ефектів використовується хук{" "}
+            <code>useEffect</code>.
+          </p>
+
+          <ul className="list-disc ml-6">
+            <li>
+              <code>{`useEffect(() => { ... }, [])`}</code> виконується один раз
+              після першого рендера (аналог componentDidMount).
+            </li>
+            <li>
+              <code>{`useEffect(() => { ... })`}</code> або{" "}
+              <code>{`useEffect(() => { ... }, [dependencies])`}</code>{" "}
+              виконується після кожного рендера або при зміні залежностей
+              відповідно (аналог componentDidUpdate).
+            </li>
+            <li>
+              Функція, яка повертається з <code>useEffect</code>, виконується
+              перед наступним викликом ефекту або при демонтажі компонента
+              (аналог <code>componentWillUnmount</code>).
+            </li>
+          </ul>
+
+          <Code
+            code={`useEffect(() => {
+  console.log("Mounted");
+
+  return () => {
+    console.log("Unmounted");
+  };
+}, []);
+
+useEffect(() => {
+  console.log("Updated or dependencies changed");
+});`}
+          />
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Приклад життєвого циклу функціонального компонента
+          </div>
+          <Code
+            code={`import { useEffect, useState } from "react";
+          
+type LifeCycleFunctionComponentProps = {
+  text: string;
+};
+function LifeCycleFunctionComponent({ text }: LifeCycleFunctionComponentProps) {
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    console.log("Mounted"); // componentDidMount
+  }, []);
+
+  useEffect(() => {
+    return () => console.log("Unmounted"); // componentWillUnmount
+  }, []);
+
+  useEffect(() => {
+    console.log("Updated (any render)"); // render cycle
+  });
+
+  useEffect(() => {
+    console.log("Counter changed"); // componentDidUpdate(counter)
+  }, [counter]);
+
+  const updateCounterValue = (): void => {
+    setCounter(counter + 1);
+  };
+  return (
+    <>
+      <div className="flex">
+        <button
+          onClick={updateCounterValue}
+          className="p-2 bg-blue-500 text-white rounded-md cursor-pointer mx-auto my-0 mt-2.5"
+        >
+          {text}
+        </button>
+      </div>
+    </>
+  );
+}
+export default LifeCycleFunctionComponent;
+`}
+          />
+          <div className="flex">
+            <button
+              onClick={() => {
+                setIsLifeCycleFunctionComponentVisible((prev) => !prev);
+              }}
+              className="p-2 bg-red-500 text-white rounded-md cursor-pointer mx-auto my-0 mt-2.5"
+            >
+              {isLifeCycleFunctionComponentVisible ? "Delete" : "Create"}{" "}
+              Component
+            </button>
+          </div>
+          {isLifeCycleFunctionComponentVisible && (
+            <>
+              <LifeCycleFunctionComponent text="Update Component" />
+              <p className="text-center italic text-xs">check console</p>
+            </>
+          )}
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Використання memo для оптимізації render
+          </div>
+          <p className="mb-[10px]">
+            <code>memo</code> — це функція з React, яка оптимізує продуктивність
+            функціональних компонентів, запобігаючи їх повторному рендеру, якщо
+            пропси не змінилися.
+          </p>
+
+          <p className="mb-[10px]">
+            За замовчуванням React рендерить усі дочірні компоненти при кожному
+            рендері батьківського, навіть якщо пропси дочірнього компонента не
+            змінились. <code>memo</code> дозволяє уникнути цього, обгортаючи
+            компонент і порівнюючи старі та нові пропси.
+          </p>
+
+          <p className="mb-[10px]">
+            Важливо розуміти: <code>memo</code> працює тільки з функціональними
+            компонентами і порівнює лише пропси (не state або context). Також
+            варто уникати передавання inline-функцій, обʼєктів або масивів у
+            пропси, бо вони створюють нове посилання при кожному рендері і
+            зводять оптимізацію нанівець.
+          </p>
+
+          <p>
+            Якщо потрібна глибша або кастомна перевірка пропсів,{" "}
+            <code>memo</code> приймає другим аргументом функцію{" "}
+            <code>(prevProps, nextProps) =&gt; boolean</code> для ручного
+            контролю, коли дозволяти перерендер.
+          </p>
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Приклад використання memo
+          </div>
+          <p>MemoExample.tsx:</p>
+          <Code
+            code={`import { useState } from "react";
+import classNames from "classnames";
+
+import MemoExampleChild from "./MemoExampleChild";
+import MemoExampleChild2 from "./MemoExampleChild2";
+
+export default function MemoExample() {
+  const [isBlack, setIsBlack] = useState(true);
+  console.log("Parent Function Component rendered");
+  const changeBtnColor = () => {
+    setIsBlack((prev) => !prev);
+  };
+
+  return (
+    <>
+      <div className="py-2 flex items-center justify-center gap-3">
+        <button
+          onClick={changeBtnColor}
+          className={classNames(
+            "cursor-pointer p-2 rounded-lg",
+            { "bg-black": isBlack },
+            { "text-white": isBlack },
+            { "bg-white": !isBlack },
+            { "text-black": !isBlack }
+          )}
+        >
+          Parent Function Component
+        </button>
+        <MemoExampleChild />
+        <MemoExampleChild2 />
+      </div>
+    </>
+  );
+}
+`}
+          />
+          <p className="mt-[10px]">MemoExampleChild.tsx:</p>
+          <Code
+            code={`import { memo, useState } from "react";
+          
+function MemoExampleChild() {
+  const [counter, setCounter] = useState(0);
+  console.log("Child with memo rendered");
+
+  const buttonClicked = () => {
+    setCounter((prev) => prev + 1);
+  };
+
+  return (
+    <button
+      className="p-2 cursor-pointer bg-blue-500 rounded-lg"
+      onClick={buttonClicked}
+      type="button"
+    >
+      Child with memo: {counter}
+    </button>
+  );
+}
+MemoExampleChild.displayName = "MemoExampleChild";
+export default memo(MemoExampleChild);`}
+          />
+          <p className="mt-[10px]">MemoExampleChild2.tsx:</p>
+          <Code
+            code={`import { useState } from "react";
+
+export default function MemoExampleChild2() {
+  const [counter, setCounter] = useState(0);
+  console.log("Child without memo rendered");
+
+  const buttonClicked = () => {
+    setCounter((prev) => prev + 1);
+  };
+
+  return (
+    <button
+      className="p-2 cursor-pointer bg-blue-500 rounded-lg"
+      onClick={buttonClicked}
+      type="button"
+    >
+      Child without memo: {counter}
+    </button>
+  );
+}`}
+          />
+
+          <div className="flex">
+            <button
+              onClick={() => {
+                setIsMemoExampleVisible((prev) => !prev);
+              }}
+              className="p-2 bg-red-500 text-white rounded-md cursor-pointer mx-auto my-0 mt-2.5"
+            >
+              {isMemoExampleVisible ? "Hide" : "Show"} Memo Example
+            </button>
+          </div>
+          {isMemoExampleVisible && (
+            <>
+              <MemoExample />
+              <p className="text-center italic text-xs">check console</p>
+            </>
+          )}
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Використання PureComponent для оптимізації render
+          </div>
+          <p className="mb-[10px]">
+            <code>PureComponent</code> — це спеціальний базовий клас у React для
+            класових компонентів, який автоматично реалізує оптимізацію
+            ререндеру на основі неглибокого порівняння <code>props</code> і{" "}
+            <code>state</code>.
+          </p>
+
+          <p className="mb-[10px]">
+            На відміну від звичайного <code>Component</code>, який завжди
+            викликає <code>render()</code> при зміні state або props,{" "}
+            <code>PureComponent</code> пропускає ререндер, якщо нові значення{" "}
+            <code>props</code> і <code>state</code> "поверхнево" збігаються зі
+            старими.
+          </p>
+
+          <p className="mb-[10px]">
+            Це дозволяє уникати зайвих ререндерів, але потребує обережності:
+            якщо передавати до компонента змінні з новими посиланнями (напр.,
+            нові масиви, обʼєкти або функції), <code>PureComponent</code>{" "}
+            сприйме їх як зміну, навіть якщо дані фактично не змінилися.
+          </p>
+
+          <p>
+            Також <code>PureComponent</code> не слід використовувати, якщо
+            компонент покладається на глибоко вкладені структури або має побічні
+            ефекти, які не повʼязані з пропсами чи стейтом.
+          </p>
+
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Приклад використання PureComponent
+          </div>
+          <p className="mt-[10px]">PureComponentExample.tsx:</p>
+          <Code
+            code={`import { Component } from "react";
+import classNames from "classnames";
+
+import PureComponentExampleChild from "./PureComponentExampleChild";
+import PureComponentExampleChild2 from "./PureComponentExampleChild2";
+
+type PureComponentExampleState = {
+  isBlack: boolean;
+};
+export default class PureComponentExample extends Component<unknown, PureComponentExampleState> {
+  state = { isBlack: true };
+
+  changeBtnColor = () => {
+    this.setState((prev) => ({ isBlack: !prev.isBlack }));
+  };
+
+  render() {
+    console.log("Parent Class Component rendered");
+    const { isBlack } = this.state;
+    return (
+      <>
+        <div className="py-2 flex items-center justify-center gap-3">
+          <button
+            onClick={this.changeBtnColor}
+            className={classNames(
+              "cursor-pointer p-2 rounded-lg",
+              { "bg-black": isBlack },
+              { "text-white": isBlack },
+              { "bg-white": !isBlack },
+              { "text-black": !isBlack }
+            )}
+          >
+            Parent Class Component
+          </button>
+          <PureComponentExampleChild />
+          <PureComponentExampleChild2 />
+        </div>
+      </>
+    );
+  }
+}
+`}
+          />
+          <p className="mt-[10px]">PureComponentExampleChild.tsx:</p>
+          <Code
+            code={`import { PureComponent } from "react";
+          
+type PureComponentChildState = {
+  counter: number;
+};
+
+class PureComponentChild extends PureComponent<unknown, PureComponentChildState> {
+  state = { counter: 0 };
+
+  buttonClicked = () => {
+    this.setState((prev) => ({ counter: prev.counter + 1 }));
+  };
+  render() {
+    const { counter } = this.state;
+    console.log("Child with PureComponent rendered");
+    return (
+      <button
+        className="p-2 cursor-pointer bg-blue-500 rounded-lg"
+        onClick={this.buttonClicked}
+        type="button"
+      >
+        Child with PureComponent: {counter}
+      </button>
+    );
+  }
+}
+
+export default PureComponentChild;`}
+          />
+
+          <p className="mt-[10px]">PureComponentExampleChild2.tsx:</p>
+          <Code
+            code={`import { Component } from "react";
+          
+type PureComponentChild2State = {
+  counter: number;
+};
+
+export default class PureComponentChild2 extends Component<
+  unknown,
+  PureComponentChild2State
+> {
+  state = { counter: 0 };
+
+  buttonClicked = () => {
+    this.setState((prev) => ({ counter: prev.counter + 1 }));
+  };
+  render() {
+    const { counter } = this.state;
+    console.log("Child with Component rendered");
+    return (
+      <button
+        className="p-2 cursor-pointer bg-blue-500 rounded-lg"
+        onClick={this.buttonClicked}
+        type="button"
+      >
+        Child with Component: {counter}
+      </button>
+    );
+  }
+}
+`}
+          />
+          <div className="flex">
+            <button
+              onClick={() => {
+                setIsPureComponentExampleVisible((prev) => !prev);
+              }}
+              className="p-2 bg-red-500 text-white rounded-md cursor-pointer mx-auto my-0 mt-2.5"
+            >
+              {isPureComponentExampleVisible ? "Hide" : "Show"} PureComponent
+              Example
+            </button>
+          </div>
+          {isPureComponentExampleVisible && (
+            <>
+              <PureComponentExample />
+              <p className="text-center italic text-xs">check console</p>
+            </>
+          )}
         </Topic>
       </div>
     </>

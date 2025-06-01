@@ -11,10 +11,22 @@ function CodeSnippet({ code, result }: CodeSnippetProps) {
     setIsVisible((prev) => !prev);
   };
 
+  const copyCode = () => {
+    navigator.clipboard.writeText(code);
+  };
+
   return (
     <div>
       <div className="mb-[10px]">
-        <pre className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
+        <pre className="relative bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
+          <button
+            id="copyCodeBtn"
+            onClick={copyCode}
+            type="button"
+            className="hover:bg-white hover:text-gray-900 cursor-pointer absolute top-2 right-2 py-1 px-2 rounded-md border text-gray-300 border-gray-300"
+          >
+            Copy
+          </button>
           <code>{code}</code>
         </pre>
       </div>
