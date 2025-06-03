@@ -1302,6 +1302,22 @@ export default class PureComponentChild2 extends Component<
           )}
         </Topic>
         <Topic title="Routing">
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Що таке Routing?
+          </div>
+          <p className="mb-[10px]">
+            Routing — це навігація між сторінками в односторінковому застосунку
+            (SPA).
+          </p>
+          <p className="mb-[10px]">
+            У звичайному вебсайті при переході на іншу сторінку браузер
+            завантажує нову HTML-сторінку з сервера. У React це імітується:
+            сторінка не перезавантажується, змінюється лише вміст на екрані,
+            залежно від поточного URL.
+          </p>
+          <div className="text-[20px] font-semibold mt-[10px]">
+            Ручна реалізація роутера
+          </div>
           <div className="flex gap-2.5 justify-center">
             <button
               className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
@@ -1332,6 +1348,33 @@ export default class PureComponentChild2 extends Component<
               { path: "/code", component: MyRouterCode },
             ]}
           />
+          <div className="text-[20px] font-semibold mt-[10px]">
+            React Router
+          </div>
+          <p className="mb-[10px]">
+            Найпопулярніша бібліотека для роутингу —{" "}
+            <strong>React Router DOM</strong>.
+          </p>
+          <p className="mb-[10px]">
+            Вона дозволяє:
+            <ul className="list-disc ml-6">
+              <li>
+                Показувати різні компоненти залежно від URL (/about, /users, тощо)
+              </li>
+              <li>
+                Використовувати посилання (<code>{"<Link>"}</code>) замість{" "}
+                <code>{"<a>"}</code>
+              </li>
+              <li>Отримувати параметри з URL (/user/:id)</li>{" "}
+              <li>
+                Реалізовувати вкладені маршрути, редиректи, захист маршрутів тощо
+              </li>
+            </ul>
+          </p>
+          <p className="mb-[10px]">
+            Встановлення:
+            <Code code={`npm install react-router-dom`} />
+          </p>
         </Topic>
       </div>
     </>
