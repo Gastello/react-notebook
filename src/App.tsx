@@ -8,6 +8,10 @@ import ClassButtonCounter from "./components/classButtonCounter/ClassButtonCount
 import LifeCycleFunctionComponent from "./components/lifeCycleFunctionComponent/LifeCycleFunctionComponent";
 import MemoExample from "./components/memoExample/MemoExample";
 import PureComponentExample from "./components/pureComponentExample/PureComponentExample";
+import MyRouter, { myRouterNavigate } from "./components/myRouter/MyRouter";
+import MyRouterHome from "./components/myRouter/MyRouterHome";
+import MyRouterCode from "./components/myRouter/MyRouterCode";
+import MyRouterInfo from "./components/myRouter/MyRouterInfo";
 
 function App() {
   const [
@@ -1149,8 +1153,8 @@ export default function MemoExampleChild2() {
             На відміну від звичайного <code>Component</code>, який завжди
             викликає <code>render()</code> при зміні state або props,{" "}
             <code>PureComponent</code> пропускає ререндер, якщо нові значення{" "}
-            <code>props</code> і <code>state</code> "поверхнево" збігаються зі
-            старими.
+            <code>props</code> і <code>state</code> &quot;поверхнево&quot;
+            збігаються зі старими.
           </p>
 
           <p className="mb-[10px]">
@@ -1296,6 +1300,38 @@ export default class PureComponentChild2 extends Component<
               <p className="text-center italic text-xs">check console</p>
             </>
           )}
+        </Topic>
+        <Topic title="Routing">
+          <div className="flex gap-2.5 justify-center">
+            <button
+              className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
+              type="button"
+              onClick={() => myRouterNavigate("/")}
+            >
+              Go to MyRouterHome
+            </button>
+            <button
+              className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
+              type="button"
+              onClick={() => myRouterNavigate("/info")}
+            >
+              Go to MyRouterInfo
+            </button>
+            <button
+              className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
+              type="button"
+              onClick={() => myRouterNavigate("/code")}
+            >
+              Go to MyRouterCode
+            </button>
+          </div>
+          <MyRouter
+            routes={[
+              { path: "/", component: MyRouterHome },
+              { path: "/info", component: MyRouterInfo },
+              { path: "/code", component: MyRouterCode },
+            ]}
+          />
         </Topic>
       </div>
     </>
