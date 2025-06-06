@@ -26,7 +26,7 @@ function Code({ code }: CodeProps) {
         id="copyCodeBtn"
         onClick={copyCode}
         type="button"
-        className="hover:bg-white hover:text-gray-900 cursor-pointer absolute top-2 right-2 py-1 px-2 rounded-md border text-gray-300 border-gray-300e"
+        className="hover:bg-white hover:text-gray-900 cursor-pointer absolute top-[5px] right-2 py-0.5 px-2 rounded-md border text-gray-300 border-gray-300"
       >
         Copy
       </button>

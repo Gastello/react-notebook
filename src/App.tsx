@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <Header />
-      <div className="wrapper py-[10px]">
+      <div className="wrapper wrapper_content">
         <Topic title="Початок">
           <div className="text-[20px] font-semibold mt-0">Документація</div>
           <p>
