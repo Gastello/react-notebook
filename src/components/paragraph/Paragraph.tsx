@@ -4,5 +4,5 @@ type ParagraphProps = {
   children: ReactNode;
 };
 export default function Paragraph({ children }: ParagraphProps) {
-  return <p className="mb-[10px]">{children}</p>;
+  return <div className="mb-[10px]">{children}</div>;
 }

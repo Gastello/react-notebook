@@ -28,7 +28,7 @@ const useLocalStorage = (key: string, defaultValue: unknown) => {
   return [localStorageValue, changeValue];
 };
 
-export const myRouterNavigate = (path: string) => {
+const myRouterNavigate = (path: string) => {
   window.history.pushState({}, "", path);
   window.dispatchEvent(new PopStateEvent("popstate"));
 };
@@ -44,7 +44,7 @@ export default function MyRouter({ routes }: MyRouterProps) {
 
     window.addEventListener("popstate", handlePopState);
 
-    return () => {  
+    return () => {
       window.removeEventListener("popstate", handlePopState);
     };
   }, [setCurrentRoute]);
@@ -53,8 +53,40 @@ export default function MyRouter({ routes }: MyRouterProps) {
     (route) => route.path == currentRoute
   )?.component;
   return (
-    <div className="p-2 bg-gray-500 text-white rounded-md">
-      {Component ? <Component /> : <h1>Такого шляху не існує</h1>}
-    </div>
+    <>
+      <div className="flex gap-2.5 justify-center">
+        <button
+          className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
+          type="button"
+          onClick={() => myRouterNavigate("/my-router-home")}
+        >
+          Go to MyRouterHome
+        </button>
+        <button
+          className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
+          type="button"
+          onClick={() => myRouterNavigate("/my-router-info")}
+        >
+          Go to MyRouterInfo
+        </button>
+        <button
+          className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
+          type="button"
+          onClick={() => myRouterNavigate("/my-router-code")}
+        >
+          Go to MyRouterCode
+        </button>
+      </div>
+      <div className="p-2 bg-gray-500 text-white rounded-md">
+        {Component ? (
+          <Component />
+        ) : (
+          <p>
+            Це універсальний матч, який відповідає будь-якому шляху, що не був
+            раніше оброблений. Тикай кнопочки!
+          </p>
+        )}
+      </div>
+    </>
   );
 }
