@@ -17,13 +17,13 @@ export default function MyRouterInfo() {
       Ми також застосовуємо кастомний хук <code>useLocalStorage</code>, щоб зберігати поточну адресу між перезавантаженнями — для стабільного UX. При кожному переході ми оновлюємо адресу в локальному сховищі й локальному <code>state</code>. В результаті компонент <code>MyRouter</code> рендерить відповідний маршрут зі списку або fallback-повідомлення, якщо шлях не знайдено.
     </p>
 
-    <p>
+    <div>
       Перехід між сторінками відбувається через виклик функції <code>myRouterNavigate(path: string)</code>, яка:
       <ul className="list-disc list-inside">
         <li>використовує <code>window.history.pushState</code> для оновлення адресного рядка без перезавантаження</li>
         <li>створює подію <code>popstate</code>, яку слухає <code>MyRouter</code>, щоб оновити поточний маршрут</li>
       </ul>
-    </p>
+    </div>
 
     <p>
       <strong>Чому не <code>React.Component</code>?</strong> Це — клас, а не тип. Якщо спробуєш передати функціональний компонент у проп <code>component</code> з типом <code>React.Component</code>, TypeScript кине помилку. <code>React.ComponentType</code> — єдино правильний тип, який покриває <em>усі</em> варіанти React-компонентів.

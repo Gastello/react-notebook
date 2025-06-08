@@ -11,7 +11,7 @@ import Topic from "../components/topic/Topic";
 export default function RoutingTopic() {
   return (
     <Topic title="Routing">
-      <Title text="Що таке Routing?" />{" "}
+      <Title text="Що таке Routing?" />
       <Paragraph>
         Routing — це навігація між сторінками в односторінковому застосунку
         (SPA).
@@ -30,7 +30,7 @@ export default function RoutingTopic() {
           { path: "/my-router-code", component: MyRouterCode },
         ]}
       />
-      <Title text="React Router" />{" "}
+      <Title text="React Router" />
       <Paragraph>
         Найпопулярніша бібліотека для роутингу —{" "}
         <strong>React Router DOM</strong>.
@@ -45,7 +45,7 @@ export default function RoutingTopic() {
             Використовувати посилання (<code>{"<Link>"}</code>) замість{" "}
             <code>{"<a>"}</code>
           </li>
-          <li>Отримувати параметри з URL (/user/:id)</li>{" "}
+          <li>Отримувати параметри з URL (/user/:id)</li>
           <li>
             Реалізовувати вкладені маршрути, редиректи, захист маршрутів тощо
           </li>
@@ -57,7 +57,7 @@ export default function RoutingTopic() {
         <a href="https://reactrouter.com/home">React Router Home</a>
       </Paragraph>
       <Paragraph>
-        Ми будемо розбирати React Router v6.30.1:{" "}
+        Ми будемо розбирати React Router v6.30.1:
         <a href="https://reactrouter.com/6.30.1/start/concepts">
           Основні концепти
         </a>

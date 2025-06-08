@@ -60,32 +60,25 @@ export default function MyRouter({ routes }: MyRouterProps) {
           type="button"
           onClick={() => myRouterNavigate("/my-router-home")}
         >
-          Go to MyRouterHome
+          Go to MyRouter Home
         </button>
         <button
           className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
           type="button"
           onClick={() => myRouterNavigate("/my-router-info")}
         >
-          Go to MyRouterInfo
+          Go to MyRouter Info
         </button>
         <button
           className="p-2 bg-gray-500 text-white rounded-t-md cursor-pointer"
           type="button"
           onClick={() => myRouterNavigate("/my-router-code")}
         >
-          Go to MyRouterCode
+          Go to MyRouter Code
         </button>
       </div>
       <div className="p-2 bg-gray-500 text-white rounded-md">
-        {Component ? (
-          <Component />
-        ) : (
-          <p>
-            Це універсальний матч, який відповідає будь-якому шляху, що не був
-            раніше оброблений. Тикай кнопочки!
-          </p>
-        )}
+        {Component ? <Component /> : <p>This router does not has such path.</p>}
       </div>
     </>
   );
