@@ -68,6 +68,113 @@ export default function RoutingTopic() {
       </Paragraph>
       <Title text="Реалізація роутера з React Router v6" />
       <ReactRouterExample />
+      <Title text="useNavigate — імперативна навігація" />
+
+      <Paragraph>
+        <code>useNavigate</code> — хук з React Router v6.30.1, що повертає
+        функцію <code>navigate()</code> для програмної навігації замість{" "}
+        <code>&lt;Link&gt;</code>. Він прийшов на зміну старому{" "}
+        <code>useHistory</code> з v5.
+      </Paragraph>
+
+      <Title text="Синтаксис" />
+      <Paragraph>
+        <Code
+          code={`import { useNavigate } from 'react-router-dom';
+
+function MyComponent() {
+  const navigate = useNavigate();
+  return <button onClick={() => navigate('/dashboard')}>Go to /dashboard</button>;
+}`}
+        />
+      </Paragraph>
+
+      <Title text="Опції navigate()" />
+      <Paragraph>
+        <ul className="list-disc ml-6">
+          <li>
+            <code>navigate(&apos;/path&apos;)</code> — звичайний перехід.
+          </li>
+          <li>
+            <code>navigate(-1)</code> або <code>navigate(1)</code> —
+            назад/вперед по історії.
+          </li>
+          <li>
+            <code>navigate({`'/path', { replace: true }`})</code> — замінює
+            поточний запис в історії.
+          </li>
+          <li>
+            <code>navigate({`'/path', { state: { foo: 'bar' } }`})</code> —
+            передає внутрішній стан, який доступний через{" "}
+            <code>useLocation().state</code>.
+          </li>
+          <li>
+            <code>navigate({`'/path', { preventScrollReset: true }`})</code> —
+            не скидає положення прокрутки.
+          </li>
+          <li>
+            <code>navigate({`'/path', { flushSync: true }`})</code> — примусово
+            синхронний перехід.
+          </li>
+          <li>
+            <code>navigate({`'..', { relative: 'path' }`})</code> — навігація
+            відносно URL.
+          </li>
+        </ul>
+      </Paragraph>
+
+      <Title text="Приклади використання" />
+      <Paragraph>
+        <Code
+          code={`// Редирект після входу
+function Login() {
+  const navigate = useNavigate();
+  async function submit() {
+    await api.login();
+    navigate('/profile', { replace: true, state: { from: '/login' } });
+  }
+  return <button onClick={submit}>Log in</button>;
+}`}
+        />
+
+        <Code
+          code={`// Кнопка "Назад"
+function BackButton() {
+  const navigate = useNavigate();
+  return <button onClick={() => navigate(-1)}>Go Back</button>;
+}`}
+        />
+      </Paragraph>
+
+      <Title text="Best Practices" />
+      <Paragraph>
+        <ul className="list-disc ml-6">
+          <li>
+            Викликайте хук тільки на верхньому рівні компоненту — не в умовах чи
+            циклах.
+          </li>
+          <li>
+            Для простого редиректу краще використовувати JSX-компонент{" "}
+            <code>&lt;Navigate to=&quot;...&quot; replace state=... /&gt;</code>
+            .
+          </li>
+          <li>
+            Використовуйте <code>&lt;Link&gt;/&lt;NavLink&gt;</code> для
+            навігації користувачем; <code>useNavigate</code> — для програмної
+            логіки.
+          </li>
+        </ul>
+      </Paragraph>
+
+      <Title text="Коли застосовувати?" />
+      <Paragraph>
+        <ul className="list-disc ml-6">
+          <li>Після асинхронних операцій (логін, сабміт).</li>
+          <li>Для імперативних кнопок «назад/вперед».</li>
+          <li>Щоб передати стан або замінити історію (т.з. редирект).</li>
+          <li>Для умовної навігації (роли, ще недостатній доступ тощо).</li>
+        </ul>
+      </Paragraph>
     </Topic>
   );
 }
