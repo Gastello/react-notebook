@@ -9,6 +9,7 @@ import ClassComponentsTopic from "./pages/06-class-components";
 import LifecycleMemoTopic from "./pages/07-lifecycle-memo";
 import RoutingTopic from "./pages/08-routing";
 import EventsTopic from "./pages/09-events";
+import HooksTopic from "./pages/10-hooks/10-hooks";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <LifecycleMemoTopic/>
         <RoutingTopic/>
         <EventsTopic/>
+        <HooksTopic/>
       </div>
     </>
   );

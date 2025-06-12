@@ -5,7 +5,7 @@ import Topic from "../components/topic/Topic";
 
 export default function UseStateTopic() {
   return (
-    <Topic title="useState і керування станом">
+    <Topic title="Коротко про useState і керування станом">
       <div className="text-[20px] font-semibold mt-0">Що таке useState?</div>
       <Paragraph>
         <code>useState</code> — це хук React, який дозволяє додавати локальний
