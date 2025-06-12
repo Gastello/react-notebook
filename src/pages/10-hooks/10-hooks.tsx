@@ -1,6 +1,4 @@
-import Code from "../../components/code/Code";
 import Paragraph from "../../components/paragraph/Paragraph";
-import Title from "../../components/title/Title";
 import Topic from "../../components/topic/Topic";
 import HookUseCallback from "./HookUseCallback";
 import HookUseContext from "./HookUseContext";
