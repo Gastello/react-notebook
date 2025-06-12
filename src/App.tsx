@@ -8,6 +8,7 @@ import CssInReactTopic from "./pages/05-css-in-react";
 import ClassComponentsTopic from "./pages/06-class-components";
 import LifecycleMemoTopic from "./pages/07-lifecycle-memo";
 import RoutingTopic from "./pages/08-routing";
+import EventsTopic from "./pages/09-events";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <ClassComponentsTopic/>
         <LifecycleMemoTopic/>
         <RoutingTopic/>
+        <EventsTopic/>
       </div>
     </>
   );
