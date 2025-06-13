@@ -20,7 +20,7 @@ function Code({ code }: CodeProps) {
     <pre
       title="Click to show less"
       onClick={toggleIsExpanded}
-      className="cursor-pointer bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline relative"
+      className="cursor-pointer bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline relative mb-2.5"
     >
       <button
         id="copyCodeBtn"
@@ -35,7 +35,7 @@ function Code({ code }: CodeProps) {
   ) : (
     <pre
       onClick={(e) => toggleIsExpanded(e)}
-      className="cursor-pointer bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline"
+      className="cursor-pointer bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline mb-2.5"
     >
       <i>Click to show more</i>
     </pre>

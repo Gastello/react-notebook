@@ -107,24 +107,24 @@ export default function HookUseEffect() {
       />
       <Title text="Часті помилки" />
       <Paragraph>
-        <table>
-          <tr>
+        <table className="mb-2.5 mx-auto">
+          <tr className="*:p-2 border-b border-white">
             <th>Помилка</th>
             <th>Що не так</th>
           </tr>
-          <tr>
+          <tr className="*:p-2 border-b border-white">
             <td>Не передали залежності</td>
             <td>Ефект викликається на кожному рендері</td>
           </tr>
-          <tr>
+          <tr className="*:p-2 border-b border-white">
             <td>Не очистили таймер / слухач</td>
             <td>Можливі memory leaks</td>
           </tr>
-          <tr>
+          <tr className="*:p-2 border-b border-white">
             <td>Поклали функцію в залежності</td>
             <td>Перевиклик ефекту через нову функцію на кожен рендер</td>
           </tr>
-          <tr>
+          <tr className="*:p-2 border-b border-white">
             <td>Асинхронна функція напряму в useEffect</td>
             <td>{`useEffect(() => async () => {})`} — це неправильно</td>
           </tr>

@@ -8,10 +8,9 @@ function Header() {
                 <a href='' className="flex gap-3">
                     <img src={ReactLogo} alt="logo" className='w-[50px]'/>
                     <span className='text-[32px] font-bold text-white'>
-                        React
+                        React Notebook
                     </span>
                 </a>
-                <span className="text-[32px] font-bold cursor-pointer">Playground</span>
             </div>
         </header>
     )
