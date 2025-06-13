@@ -5,7 +5,7 @@ import Title from "../../components/title/Title";
 export default function HookUseState() {
   return (
     <>
-      <Title text="Хук useState" />
+      <Title text="✅ Хук useState" />
       <Paragraph>
         React рендерить компоненти як чисті функції. Але іноді компонент має
         &quot;пам’ятати&quot; якусь інформацію між рендерами: наприклад,

@@ -3,7 +3,7 @@ import Title from "../../components/title/Title";
 export default function HookUseContext() {
   return (
     <>
-      <Title text="Хук useContext" />
+      <Title text="✅ Хук useContext" />
     </>
   );
 }
