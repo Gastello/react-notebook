@@ -1,4 +1,6 @@
 import Code from "../../components/code/Code";
+import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
+import HookUseStateExample from "../../components/hooksExamples/HookUseStateExample";
 import Paragraph from "../../components/paragraph/Paragraph";
 import Title from "../../components/title/Title";
 
@@ -107,6 +109,24 @@ setCount(count + 1);`}
           </li>
         </ul>
       </Paragraph>
+      <Title text="Приклад"/>
+      <CodeSnippet code={`import { useState } from "react";
+      
+      export default function HookUseStateExample() {
+        const [value, setValue] = useState("");
+        return (
+          <div className="flex gap-2.5 items-center justify-center">
+            <input
+              placeholder="Enter a value"
+              className="border border-white p-2"
+              onChange={(e) => {
+                setValue(e.target.value);
+              }}
+            ></input>
+            <div>{value}</div>
+          </div>
+        );
+      }`} result={<HookUseStateExample/>}/>
     </>
   );
 }

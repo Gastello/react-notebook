@@ -25,36 +25,40 @@ export default function EventsTopic() {
       <Title text="Типи подій у React" />
       <Paragraph>
         <table>
-          <tr className="bg-white text-gray-900 px-2 py-1 *:px-2 *:py-1 *:border-r *:border-white">
-            <th>Подія</th>
-            <th>Тип події</th>
-            <th>Приклад типу в TS</th>
-          </tr>
-          <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
-            <td>onClick</td>
-            <td>MouseEvent</td>
-            <td>{`React.MouseEvent<HTMLButtonElement>`}</td>
-          </tr>
-          <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
-            <td>onChange</td>
-            <td>ChangeEvent</td>
-            <td>{`React.ChangeEvent<HTMLInputElement>`}</td>
-          </tr>
-          <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
-            <td>onSubmit</td>
-            <td>FormEvent</td>
-            <td>{`React.FormEvent<HTMLFormElement>`}</td>
-          </tr>
-          <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
-            <td>onInput</td>
-            <td>FormEvent / ChangeEvent</td>
-            <td>{`React.ChangeEvent<HTMLInputElement>`}</td>
-          </tr>
-          <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
-            <td>onKeyDown</td>
-            <td>KeyboardEvent</td>
-            <td>{`React.KeyboardEvent<HTMLInputElement>`}</td>
-          </tr>
+          <thead>
+            <tr className="bg-white text-gray-900 px-2 py-1 *:px-2 *:py-1 *:border-r *:border-white">
+              <th>Подія</th>
+              <th>Тип події</th>
+              <th>Приклад типу в TS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
+              <td>onClick</td>
+              <td>MouseEvent</td>
+              <td>{`React.MouseEvent<HTMLButtonElement>`}</td>
+            </tr>
+            <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
+              <td>onChange</td>
+              <td>ChangeEvent</td>
+              <td>{`React.ChangeEvent<HTMLInputElement>`}</td>
+            </tr>
+            <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
+              <td>onSubmit</td>
+              <td>FormEvent</td>
+              <td>{`React.FormEvent<HTMLFormElement>`}</td>
+            </tr>
+            <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
+              <td>onInput</td>
+              <td>FormEvent / ChangeEvent</td>
+              <td>{`React.ChangeEvent<HTMLInputElement>`}</td>
+            </tr>
+            <tr className="px-2 py-1 border border-white *:px-2 *:py-1 *:border-r *:border-white">
+              <td>onKeyDown</td>
+              <td>KeyboardEvent</td>
+              <td>{`React.KeyboardEvent<HTMLInputElement>`}</td>
+            </tr>
+          </tbody>
         </table>
       </Paragraph>
       <Title text="Controlled vs Uncontrolled компоненти" />

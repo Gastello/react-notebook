@@ -1,4 +1,6 @@
 import Code from "../../components/code/Code";
+import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
+import HookUseCallbackExample from "../../components/hooksExamples/HookUseCallbackExample";
 import Paragraph from "../../components/paragraph/Paragraph";
 import Title from "../../components/title/Title";
 
@@ -71,29 +73,33 @@ const Child = React.memo(({ onClick }: { onClick: () => void }) => {
       <Title text="Реальні кейси застосування" />
       <Paragraph>
         <table className="mb-2.5 mx-auto">
-          <tr className="*:p-2 border-b border-white">
-            <th>Сценарій</th>
-            <th>Використовуй useCallback</th>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Передаєш функцію в React.memo компонент</td>
-            <td>✅</td>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Використовуєш функцію в залежностях useEffect</td>
-            <td>✅</td>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Часто ререндериш компонент і хочеш уникнути лишнього</td>
-            <td>✅</td>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Просто хочеш &quot;оптимізувати&quot; все</td>
-            <td>❌</td>
-          </tr>
+          <thead>
+            <tr className="*:p-2 border-b border-white">
+              <th>Сценарій</th>
+              <th>Використовуй useCallback</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="*:p-2 border-b border-white">
+              <td>Передаєш функцію в React.memo компонент</td>
+              <td>✅</td>
+            </tr>
+            <tr className="*:p-2 border-b border-white">
+              <td>Використовуєш функцію в залежностях useEffect</td>
+              <td>✅</td>
+            </tr>
+            <tr className="*:p-2 border-b border-white">
+              <td>Часто ререндериш компонент і хочеш уникнути лишнього</td>
+              <td>✅</td>
+            </tr>
+            <tr className="*:p-2 border-b border-white">
+              <td>Просто хочеш &quot;оптимізувати&quot; все</td>
+              <td>❌</td>
+            </tr>
+          </tbody>
         </table>
       </Paragraph>
-      <Title text="Часті помилки" />
+      <Title text="⚠️ Часті помилки" />
       <Paragraph>
         <strong>Без useCallback:</strong> <br />
         На кожен рендер — нова функція → Child завжди ререндериться.
@@ -119,33 +125,88 @@ const Child = React.memo(({ onClick }: { onClick: () => void }) => {
       <Title text="Порівняння з useMemo" />
       <Paragraph>
         <table className="mb-2.5 mx-auto">
-          <tr className="*:p-2 border-b border-white">
-            <th>Хук</th>
-            <th>Повертає</th>
-            <th>Тип значення</th>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>useCallback(fn, deps)</td>
-            <td>memoizedFn</td>
-            <td>{`() => void`}</td>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>useMemo(fn, deps)</td>
-            <td>memoizedValue</td>
-            <td>any</td>
-          </tr>
+          <thead>
+            <tr className="*:p-2 border-b border-white">
+              <th>Хук</th>
+              <th>Повертає</th>
+              <th>Тип значення</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="*:p-2 border-b border-white">
+              <td>useCallback(fn, deps)</td>
+              <td>memoizedFn</td>
+              <td>{`() => void`}</td>
+            </tr>
+            <tr className="*:p-2 border-b border-white">
+              <td>useMemo(fn, deps)</td>
+              <td>memoizedValue</td>
+              <td>any</td>
+            </tr>
+          </tbody>
         </table>
       </Paragraph>
-      <Title text="Приклад: залежність у useEffect" />
-      <Code
-        code={`const handleFetch = useCallback(() => {
-  fetch("/api/data").then(/* ... */);
-}, []);
+      <Title text="Приклад" />
+      <CodeSnippet code={`import React, { useCallback } from "react";
+import { useEffect, useState } from "react";
 
-useEffect(() => {
-  handleFetch();
-}, [handleFetch]); // тепер залежність стабільна`}
+export default function HookUseCallbackExample() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Parent render!");
+  });
+
+  const clickFn = () => {
+    console.log("Click!");
+  };
+
+  const clickFnMemoized = useCallback(clickFn, []);
+
+  return (
+    <div className="flex justify-center gap-2">
+      <button
+        className="p-1 bg-white text-gray-900"
+        onClick={() => setCount((c) => c + 1)}
+      >
+        Update {\`{count: \${count}}\`} of Parent Component
+      </button>
+      <HookUseCallbackExampleButton
+        text="without useCallback"
+        callback={clickFn}
       />
+      <HookUseCallbackExampleButton
+        text="with useCallback"
+        callback={clickFnMemoized}
+      />
+    </div>
+  );
+}
+
+type HookUseCallbackExampleButtonProps = {
+  text: string;
+  callback: () => void;
+};
+
+const HookUseCallbackExampleButton = React.memo(
+  function HookUseCallbackExampleButton({
+    text,
+    callback,
+  }: HookUseCallbackExampleButtonProps) {
+    useEffect(() => {
+      console.log(\`Child \${text} render!\`);
+    });
+    return (
+      <button
+        type="button"
+        className="p-1 bg-white text-gray-900"
+        onClick={callback}
+      >
+        Child component {text}
+      </button>
+    );
+  }
+);`} result={<HookUseCallbackExample />} />
     </>
   );
 }

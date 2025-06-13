@@ -1,4 +1,6 @@
 import Code from "../../components/code/Code";
+import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
+import HookUseEffectExample from "../../components/hooksExamples/HookUseEffectExample";
 import Paragraph from "../../components/paragraph/Paragraph";
 import Title from "../../components/title/Title";
 
@@ -105,29 +107,33 @@ export default function HookUseEffect() {
   return () => controller.abort(); // відміняє fetch при демонтажі
 }, []);`}
       />
-      <Title text="Часті помилки" />
+      <Title text="⚠️ Часті помилки" />
       <Paragraph>
         <table className="mb-2.5 mx-auto">
-          <tr className="*:p-2 border-b border-white">
-            <th>Помилка</th>
-            <th>Що не так</th>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Не передали залежності</td>
-            <td>Ефект викликається на кожному рендері</td>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Не очистили таймер / слухач</td>
-            <td>Можливі memory leaks</td>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Поклали функцію в залежності</td>
-            <td>Перевиклик ефекту через нову функцію на кожен рендер</td>
-          </tr>
-          <tr className="*:p-2 border-b border-white">
-            <td>Асинхронна функція напряму в useEffect</td>
-            <td>{`useEffect(() => async () => {})`} — це неправильно</td>
-          </tr>
+          <thead>
+            <tr className="*:p-2 border-b border-white">
+              <th>Помилка</th>
+              <th>Що не так</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="*:p-2 border-b border-white">
+              <td>Не передали залежності</td>
+              <td>Ефект викликається на кожному рендері</td>
+            </tr>
+            <tr className="*:p-2 border-b border-white">
+              <td>Не очистили таймер / слухач</td>
+              <td>Можливі memory leaks</td>
+            </tr>
+            <tr className="*:p-2 border-b border-white">
+              <td>Поклали функцію в залежності</td>
+              <td>Перевиклик ефекту через нову функцію на кожен рендер</td>
+            </tr>
+            <tr className="*:p-2 border-b border-white">
+              <td>Асинхронна функція напряму в useEffect</td>
+              <td>{`useEffect(() => async () => {})`} — це неправильно</td>
+            </tr>
+          </tbody>
         </table>
         Якщо треба async, пишимо всередині:
       </Paragraph>
@@ -139,6 +145,43 @@ export default function HookUseEffect() {
   };
   fetchData();
 }, []);`}
+      />
+      <Title text="Приклад" />
+      <CodeSnippet
+        code={`import { useEffect, useState } from "react";
+      
+      export default function HookUseEffectExample() {
+        const [value, setValue] = useState("");
+        useEffect(() => {
+          alert("Example Mounted/Created!");
+          return () => {
+            alert("Example Unmounted/Deleted!");
+          };
+        }, []);
+        useEffect(() => {
+          alert("Example Rendered/Updated!");
+        });
+        useEffect(() => {
+          alert('Example Rendered/Updated! Because "value" changed!');
+        }, [value]);
+      
+        return (
+          <div>
+            <div className="flex gap-2.5 items-center justify-center">
+              <input
+                placeholder="Enter a value"
+                className="border border-white p-2"
+                onChange={(e) => {
+                  setValue(e.target.value);
+                }}
+              ></input>
+              <div>{value}</div>
+            </div>
+            <i>&quot;alert&quot; на початку спрацьовує двічі лише у dev режимі!</i>
+          </div>
+        );
+      }`}
+        result={<HookUseEffectExample />}
       />
     </>
   );
