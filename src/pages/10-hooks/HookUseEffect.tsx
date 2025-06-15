@@ -2,6 +2,7 @@ import Code from "../../components/code/Code";
 import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
 import HookUseEffectExample from "../../components/hooksExamples/HookUseEffectExample";
 import Paragraph from "../../components/paragraph/Paragraph";
+import Table from "../../components/table/Table";
 import Title from "../../components/title/Title";
 import Topic from "../../components/topic/Topic";
 
@@ -110,32 +111,21 @@ export default function HookUseEffect() {
         />
         <Title text="⚠️ Часті помилки" />
         <Paragraph>
-          <table className="mb-2.5 mx-auto">
-            <thead>
-              <tr className="*:p-2 border-b border-white">
-                <th>Помилка</th>
-                <th>Що не так</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="*:p-2 border-b border-white">
-                <td>Не передали залежності</td>
-                <td>Ефект викликається на кожному рендері</td>
-              </tr>
-              <tr className="*:p-2 border-b border-white">
-                <td>Не очистили таймер / слухач</td>
-                <td>Можливі memory leaks</td>
-              </tr>
-              <tr className="*:p-2 border-b border-white">
-                <td>Поклали функцію в залежності</td>
-                <td>Перевиклик ефекту через нову функцію на кожен рендер</td>
-              </tr>
-              <tr className="*:p-2 border-b border-white">
-                <td>Асинхронна функція напряму в useEffect</td>
-                <td>{`useEffect(() => async () => {})`} — це неправильно</td>
-              </tr>
-            </tbody>
-          </table>
+          <Table
+            columnsCount={2}
+            elementsList={[
+              "Помилка",
+              "Що не так",
+              "Не передали залежності",
+              "Ефект викликається на кожному рендері",
+              "Не очистили таймер / слухач",
+              "Можливі memory leaks",
+              "Поклали функцію в залежності",
+              "Перевиклик ефекту через нову функцію на кожен рендер",
+              "Асинхронна функція напряму в useEffect",
+              "useEffect(() => async () => {}) — це неправильно",
+            ]}
+          />
           Якщо треба async, пишимо всередині:
         </Paragraph>
         <Code

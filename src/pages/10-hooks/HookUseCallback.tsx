@@ -2,6 +2,7 @@ import Code from "../../components/code/Code";
 import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
 import HookUseCallbackExample from "../../components/hooksExamples/HookUseCallbackExample";
 import Paragraph from "../../components/paragraph/Paragraph";
+import Table from "../../components/table/Table";
 import Title from "../../components/title/Title";
 import Topic from "../../components/topic/Topic";
 
@@ -73,32 +74,21 @@ const Child = React.memo(({ onClick }: { onClick: () => void }) => {
         </Paragraph>
         <Title text="Реальні кейси застосування" />
         <Paragraph>
-          <table className="mb-2.5 mx-auto">
-            <thead>
-              <tr className="*:p-2 border-b border-white">
-                <th>Сценарій</th>
-                <th>Використовуй useCallback</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="*:p-2 border-b border-white">
-                <td>Передаєш функцію в React.memo компонент</td>
-                <td>✅</td>
-              </tr>
-              <tr className="*:p-2 border-b border-white">
-                <td>Використовуєш функцію в залежностях useEffect</td>
-                <td>✅</td>
-              </tr>
-              <tr className="*:p-2 border-b border-white">
-                <td>Часто ререндериш компонент і хочеш уникнути лишнього</td>
-                <td>✅</td>
-              </tr>
-              <tr className="*:p-2 border-b border-white">
-                <td>Просто хочеш &quot;оптимізувати&quot; все</td>
-                <td>❌</td>
-              </tr>
-            </tbody>
-          </table>
+          <Table
+            columnsCount={2}
+            elementsList={[
+              "Сценарій",
+              "Використовуй useCallback",
+              "Передаєш функцію в React.memo компонент",
+              "✅",
+              "Використовуєш функцію в залежностях useEffect",
+              "✅",
+              "Часто ререндериш компонент і хочеш уникнути лишнього",
+              "✅",
+              "Просто хочеш 'оптимізувати' все",
+              "❌",
+            ]}
+          />
         </Paragraph>
         <Title text="⚠️ Часті помилки" />
         <Paragraph>
@@ -125,27 +115,20 @@ const Child = React.memo(({ onClick }: { onClick: () => void }) => {
         />
         <Title text="Порівняння з useMemo" />
         <Paragraph>
-          <table className="mb-2.5 mx-auto">
-            <thead>
-              <tr className="*:p-2 border-b border-white">
-                <th>Хук</th>
-                <th>Повертає</th>
-                <th>Тип значення</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="*:p-2 border-b border-white">
-                <td>useCallback(fn, deps)</td>
-                <td>memoizedFn</td>
-                <td>{`() => void`}</td>
-              </tr>
-              <tr className="*:p-2 border-b border-white">
-                <td>useMemo(fn, deps)</td>
-                <td>memoizedValue</td>
-                <td>any</td>
-              </tr>
-            </tbody>
-          </table>
+          <Table
+            columnsCount={3}
+            elementsList={[
+              "Хук",
+              "Повертає",
+              "Тип значення",
+              "useCallback(fn, deps)",
+              "memoizedFn",
+              "() => void",
+              "useMemo(fn, deps)",
+              "memoizedValue",
+              "any",
+            ]}
+          />
         </Paragraph>
         <Title text="Приклад" />
         <CodeSnippet

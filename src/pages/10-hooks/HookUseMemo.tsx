@@ -2,6 +2,7 @@ import Code from "../../components/code/Code";
 import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
 import HookUseMemoExample from "../../components/hooksExamples/HookUseMemoExample";
 import Paragraph from "../../components/paragraph/Paragraph";
+import Table from "../../components/table/Table";
 import Title from "../../components/title/Title";
 import Topic from "../../components/topic/Topic";
 
@@ -80,28 +81,19 @@ const MyComponent = ({ count }: { count: number }) => {
         </Paragraph>
         <Title text="useMemo vs useCallback" />
         <Paragraph>
-          <table className="mx-auto">
-            <thead>
-              <tr className="*:border-b *:border-white *:p-1">
-                <th>useCallback</th>
-                <th>useMemo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="*:border-b *:border-white *:p-1">
-                <td>Зберігає функцію</td>
-                <td>Зберігає значення (результат обчислень)</td>
-              </tr>
-              <tr className="*:border-b *:border-white *:p-1">
-                <td>{`useCallback(() => fn, [deps])`}</td>
-                <td>{`useMemo(() => compute(), [deps])`}</td>
-              </tr>
-              <tr className="*:border-b *:border-white *:p-1">
-                <td>Часто використовується для пропсів</td>
-                <td>Часто використовується для оптимізації обчислень</td>
-              </tr>
-            </tbody>
-          </table>
+          <Table
+            columnsCount={2}
+            elementsList={[
+              "useCallback",
+              "useMemo",
+              "Зберігає функцію",
+              "Зберігає значення (результат обчислень)",
+              "useCallback(() => fn, [deps])",
+              "useMemo(() => compute(), [deps])",
+              "Часто використовується для пропсів",
+              "Часто використовується для оптимізації обчислень",
+            ]}
+          />
         </Paragraph>
         <Title text="Коли не треба використовувати useMemo?" />
         <Paragraph>
