@@ -1,9 +1,9 @@
-import Title from "../../components/title/Title";
+import Topic from "../../components/topic/Topic";
 
 export default function HookUseReducer() {
   return (
     <>
-      <Title text="✅ Хук useReducer" />
+      <Topic title="✅ Хук useReducer">useReducer</Topic>
     </>
   );
 }

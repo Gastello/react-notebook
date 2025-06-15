@@ -1,9 +1,9 @@
-import Title from "../../components/title/Title";
+import Topic from "../../components/topic/Topic";
 
 export default function HookUseImperativeHandle() {
   return (
     <>
-      <Title text="✅ Хук useImperativeHandle" />
+      <Topic title="✅ Хук useImperativeHandle">useImperativeHandle</Topic>
     </>
   );
 }

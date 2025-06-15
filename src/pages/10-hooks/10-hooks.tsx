@@ -19,23 +19,14 @@ export default function HooksTopic() {
         ефектами, і багато іншого — без класів.
       </Paragraph>
       <HookUseState />
-      <hr />
       <HookUseEffect />
-      <hr />
       <HookUseCallback />
-      <hr />
       <HookUseMemo />
-      <hr />
       <HookUseRef />
-      <hr />
       <HookUseImperativeHandle />
-      <hr />
       <HookUseContext />
-      <hr />
       <HookUseLayoutEffect />
-      <hr />
       <HookUseReducer />
-      <hr />
     </Topic>
   );
 }

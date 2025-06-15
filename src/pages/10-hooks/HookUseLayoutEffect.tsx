@@ -1,9 +1,9 @@
-import Title from "../../components/title/Title";
+import Topic from "../../components/topic/Topic";
 
 export default function HookUseLayoutEffect() {
   return (
     <>
-      <Title text="✅ Хук useLayoutEffect" />
+      <Topic title="✅ Хук useLayoutEffect">useLayoutEffect</Topic>
     </>
   );
 }

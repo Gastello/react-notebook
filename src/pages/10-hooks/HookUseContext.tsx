@@ -1,9 +1,11 @@
-import Title from "../../components/title/Title";
+import Topic from "../../components/topic/Topic";
 
 export default function HookUseContext() {
   return (
     <>
-      <Title text="✅ Хук useContext" />
+      <Topic title="✅ Хук useContext">
+        useContext
+      </Topic>
     </>
   );
 }

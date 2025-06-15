@@ -1,9 +1,9 @@
-import Title from "../../components/title/Title";
+import Topic from "../../components/topic/Topic";
 
 export default function HookUseRef() {
   return (
     <>
-      <Title text="✅ Хук useRef" />
+      <Topic title="✅ Хук useRef">useRef</Topic>
     </>
   );
 }
