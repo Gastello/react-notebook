@@ -138,9 +138,11 @@ useEffect(() => {
         />
         <Title text="Робочий приклад" />
         <Paragraph>
-          У цьому прикладі видно, що значення <strong>counter</strong> змінюється, але rerender компонента не відбувається!
+          У цьому прикладі видно, що значення <strong>counter</strong>{" "}
+          змінюється, але rerender компонента не відбувається!
         </Paragraph>
-        <CodeSnippet code={`import { useRef } from "react";
+        <CodeSnippet
+          code={`import { useRef } from "react";
         
         export default function HookUseRefExample() {
           const counter = useRef(0);
@@ -158,7 +160,9 @@ useEffect(() => {
               </button>
             </div>
           );
-        }`} result={<HookUseRefExample />} />
+        }`}
+          result={<HookUseRefExample />}
+        />
       </Topic>
     </>
   );
