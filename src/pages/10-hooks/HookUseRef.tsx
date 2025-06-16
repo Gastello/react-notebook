@@ -1,4 +1,6 @@
 import Code from "../../components/code/Code";
+import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
+import HookUseRefExample from "../../components/hooksExamples/HookUseRefExample";
 import Paragraph from "../../components/paragraph/Paragraph";
 import Table from "../../components/table/Table";
 import Title from "../../components/title/Title";
@@ -134,6 +136,29 @@ useEffect(() => {
 }, []);
 `}
         />
+        <Title text="Робочий приклад" />
+        <Paragraph>
+          У цьому прикладі видно, що значення <strong>counter</strong> змінюється, але rerender компонента не відбувається!
+        </Paragraph>
+        <CodeSnippet code={`import { useRef } from "react";
+        
+        export default function HookUseRefExample() {
+          const counter = useRef(0);
+        
+          return (
+            <div>
+              <button
+                onClick={() => {
+                  counter.current++;
+                  console.log("counter useRef value:", counter.current);
+                    }}
+                className="p-2 bg-white rounded text-gray-900"
+              >
+                Change counter useRef value: {counter.current}
+              </button>
+            </div>
+          );
+        }`} result={<HookUseRefExample />} />
       </Topic>
     </>
   );
