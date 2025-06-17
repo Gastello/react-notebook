@@ -1,4 +1,6 @@
 import Code from "../../components/code/Code";
+import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
+import HookUseContextExample from "../../components/hooksExamples/HookUseContextExample/HookUseContextExample";
 import Paragraph from "../../components/paragraph/Paragraph";
 import Table from "../../components/table/Table";
 import Title from "../../components/title/Title";
@@ -149,6 +151,106 @@ const Child = () => {
           <strong>3. useContext у неправильному порядку:</strong> <br />
           Не можна викликати useContext умовно. Завжди має бути на верхньому
           рівні функції-компонента.
+        </Paragraph>
+        <Title text="Реальний приклад" />
+        <Paragraph>
+          <strong>HookUseContextExample.tsx:</strong>
+        </Paragraph>
+        <Code
+          code={`import { createContext, useState } from "react";
+import HookUseContextContainer from "./HookUseContextContainer";
+
+export const themes = {
+  light: {
+    backgroundColor: "white",
+    text: "black",
+  },
+  dark: {
+    backgroundColor: "black",
+    text: "white",
+  },
+};
+export type UserContextType = {
+  user: string;
+  setUser: (user: string) => void;
+};
+export const UserContext = createContext<UserContextType | undefined>(undefined);
+
+export default function HookUseContextExample() {
+  const [user, setUser] = useState("");
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      <HookUseContextContainer></HookUseContextContainer>
+    </UserContext.Provider>
+  );
+}`}
+        />
+        <Paragraph>
+          <strong>HookUseContextContainer.tsx:</strong>
+        </Paragraph>
+        <Code
+          code={`import HookUseContextButton from "./HookUseContextButton";
+import HookUseContextText from "./HookUseContextText";
+
+export default function HookUseContextContainer() {
+  return (
+    <div className="flex gap-2 justify-center items-center">
+      <HookUseContextText />
+      <HookUseContextButton />
+    </div>
+  );
+}`}
+        />
+        <Paragraph>
+          <strong>HookUseContextButton.tsx:</strong>
+        </Paragraph>
+        <Code
+          code={`import { useContext } from "react";
+import { UserContext } from "./HookUseContextExample";
+
+export default function HookUseContextButton() {
+  const userContext = useContext(UserContext);
+  if (!userContext) throw new Error("UserContext is missing");
+  return (
+    <button
+      className="bg-white rounded p-2 text-gray-900 cursor-pointer"
+      onClick={() => userContext.setUser("Gastello")}
+    >
+      Log In
+    </button>
+  );
+}`}
+        />
+        <Paragraph>
+          <strong>HookUseContextText.tsx:</strong>
+        </Paragraph>
+
+        <CodeSnippet
+          code={`import { useContext } from "react";
+import { UserContext } from "./HookUseContextExample";
+
+export default function HookUseContextText() {
+  const userContext = useContext(UserContext);
+  if (!userContext) throw new Error("UserContext is missing");
+  return (
+    <span className="font-bold">
+      {userContext.user ? userContext.user : "Guest"}
+    </span>
+  );
+}`}
+          result={<HookUseContextExample />}
+        />
+        <Paragraph>
+          У прикладі створено контекст UserContext, який містить user (ім’я
+          користувача) та setUser (функцію його оновлення). Контекст
+          ініціалізується зі значенням undefined, щоб гарантувати помилку, якщо
+          хтось спробує використати його поза межами Provider. У компоненті
+          HookUseContextExample створюється стан користувача і передається через
+          UserContext.Provider. Дочірні компоненти (HookUseContextText і
+          HookUseContextButton) використовують useContext для читання і зміни
+          значення. Таким чином, контекст дозволяє зручно передавати стан без
+          прокидування props на кожному рівні.
         </Paragraph>
       </Topic>
     </>
