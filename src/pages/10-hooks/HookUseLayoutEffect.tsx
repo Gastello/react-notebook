@@ -1,3 +1,6 @@
+import Code from "../../components/code/Code";
+import CodeSnippet from "../../components/codeSnippet/CodeSnippet";
+import HookUseLayoutEffectExample from "../../components/hooksExamples/HookUseLayoutEffectExample/HookUseLayoutEffectExample";
 import Paragraph from "../../components/paragraph/Paragraph";
 import Title from "../../components/title/Title";
 import Topic from "../../components/topic/Topic";
@@ -16,6 +19,17 @@ export default function HookUseLayoutEffect() {
           <strong>useLayoutEffect</strong> може блокувати рендер і призводити до
           зниження продуктивності, якщо використовується без нагальної потреби.
         </Paragraph>
+        <Title text="Синтаксис" />
+        <Code
+          code={`import { useLayoutEffect } from "react";
+
+useLayoutEffect(() => {
+  // цей код виконається *синхронно* після рендеру, але перед тим як браузер намалює DOM
+  return () => {
+    // cleanup (опціонально)
+  };
+}, [dependencies]); // масив залежностей, так само як у useEffect`}
+        />
         <Title text="Коли саме він спрацьовує" />
         <Paragraph>
           <ul className="list-decimal list-inside">
@@ -68,6 +82,72 @@ export default function HookUseLayoutEffect() {
               продуктивності.
             </li>
           </ul>
+        </Paragraph>
+        <Title text="Реальний приклад" />
+        <CodeSnippet
+          code={`import { useEffect, useLayoutEffect, useRef, useState } from "react";
+        
+        export default function HookUseLayoutEffectExample() {
+          const [messages, setMessages] = useState([
+            {
+              text: "Hello, world!",
+              time: new Date().toLocaleTimeString(undefined, {
+                hour: "2-digit",
+                hour12: false,
+                minute: "2-digit",
+                second: "2-digit",
+              }),
+            },
+          ]);
+        
+          const messagesContainerRef = useRef<HTMLDivElement>(null);
+          useEffect(() => {
+            setInterval(() => {
+              setMessages((prev) => [
+                ...prev,
+                {
+                  text: "New message!",
+                  time: new Date().toLocaleTimeString(undefined, {
+                    hour: "2-digit",
+                    hour12: false,
+                    minute: "2-digit",
+                    second: "2-digit",
+                  }),
+                },
+              ]);
+            }, 1000);
+          }, []);
+        
+          useLayoutEffect(() => {
+            if (messagesContainerRef.current) {
+              messagesContainerRef.current.scrollTop =
+                messagesContainerRef.current.scrollHeight;
+            }
+          }, [messages]);
+        
+          return (
+            <div ref={messagesContainerRef} className="h-[300px] overflow-y-auto">
+              <div className="flex flex-col gap-2.5 w-[350px]">
+                {messages.map((element, index) => (
+                  <div
+                    className="border rounded bg-gray-300 text-gray-900 p-1"
+                    key={index}
+                  >
+                    <div className="flex justify-between mb-2.5">
+                      <span className="italic">Gastello says:</span>
+                      <span>{element.time}</span>
+                    </div>
+                    <div>{element.text}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        }`}
+          result={<HookUseLayoutEffectExample />}
+        />
+        <Paragraph>
+          <strong>Увага на скролл!</strong> <br />
         </Paragraph>
       </Topic>
     </>

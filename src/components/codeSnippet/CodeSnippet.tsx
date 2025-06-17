@@ -37,7 +37,7 @@ function CodeSnippet({ code, result }: CodeSnippetProps) {
         {isVisible ? "Hide" : "Run code"}
       </button>
       {isVisible && (
-        <div className="bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline mb-[10px]">
+        <div className="bg-gray-900 p-2 rounded text-sm text-white font-semibold mb-[10px]">
           {result}
         </div>
       )}
