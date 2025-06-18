@@ -7,7 +7,7 @@ export default function RoutingPractice() {
       <a
         target="_blank"
         rel="noreferrer"
-        href="https://react-routing-mu-wine.vercel.app/"
+        href="https://react-routing-gastello.vercel.app/"
       >
         Routing Practice
       </a>
