@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type CodeSnippetProps = {
   code: string;
@@ -18,7 +20,7 @@ function CodeSnippet({ code, result }: CodeSnippetProps) {
   return (
     <div>
       <div className="mb-[10px]">
-        <pre className="relative bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline">
+        <pre className="relative min-h-[49px] bg-[rgb(40,44,52)] rounded text-sm text-white font-semibold text-outline">
           <button
             id="copyCodeBtn"
             onClick={copyCode}
@@ -27,7 +29,15 @@ function CodeSnippet({ code, result }: CodeSnippetProps) {
           >
             Copy
           </button>
-          <code>{code}</code>
+          <code>
+            <SyntaxHighlighter
+              language="typescript"
+              style={oneDark}
+              showLineNumbers
+            >
+              {code}
+            </SyntaxHighlighter>
+          </code>
         </pre>
       </div>
       <button
@@ -37,7 +47,7 @@ function CodeSnippet({ code, result }: CodeSnippetProps) {
         {isVisible ? "Hide" : "Run code"}
       </button>
       {isVisible && (
-        <div className="bg-gray-900 p-2 rounded text-sm text-white font-semibold mb-[10px]">
+        <div className="bg-[rgb(40,44,52)] p-2 rounded text-sm text-white font-semibold mb-[10px]">
           {result}
         </div>
       )}

@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type CodeProps = {
   code: string;
 };
+
 function Code({ code }: CodeProps) {
   const [isExpanded, setIsExpanded] = useState(true);
 
@@ -20,7 +23,7 @@ function Code({ code }: CodeProps) {
     <pre
       title="Click to show less"
       onClick={toggleIsExpanded}
-      className="cursor-pointer bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline relative mb-2.5"
+      className="min-h-[49px] bg-[rgb(40,44,52)] cursor-pointer rounded text-sm text-white font-semibold text-outline relative mb-2.5"
     >
       <button
         id="copyCodeBtn"
@@ -30,14 +33,22 @@ function Code({ code }: CodeProps) {
       >
         Copy
       </button>
-      <code>{code}</code>
+      <code>
+        <SyntaxHighlighter
+          language="typescript"
+          style={oneDark}
+          showLineNumbers
+        >
+          {code}
+        </SyntaxHighlighter>
+      </code>
     </pre>
   ) : (
     <pre
       onClick={(e) => toggleIsExpanded(e)}
-      className="cursor-pointer bg-gray-900 p-2 rounded text-sm text-white font-semibold text-outline mb-2.5"
+      className="cursor-pointer bg-[rgb(40,44,52)] p-2 rounded text-sm text-white font-semibold text-outline mb-2.5"
     >
-      <i>Click to show more</i>
+      <i>Click to show Code</i>
     </pre>
   );
 }
