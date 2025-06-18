@@ -10,6 +10,7 @@ import LifecycleMemoTopic from "./pages/07-lifecycle-memo";
 import RoutingTopic from "./pages/08-routing";
 import EventsTopic from "./pages/09-events";
 import HooksTopic from "./pages/10-hooks/10-hooks";
+import RoutingPractice from "./pages/projects/routingPractice";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <ClassComponentsTopic/>
         <LifecycleMemoTopic/>
         <RoutingTopic/>
+        <RoutingPractice/>
         <EventsTopic/>
         <HooksTopic/>
       </div>
