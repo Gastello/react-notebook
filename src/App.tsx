@@ -11,6 +11,7 @@ import RoutingTopic from "./pages/08-routing";
 import EventsTopic from "./pages/09-events";
 import HooksTopic from "./pages/10-hooks/10-hooks";
 import RoutingPractice from "./pages/projects/routingPractice";
+import Zustand from "./pages/11-zustand";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <RoutingPractice/>
         <EventsTopic/>
         <HooksTopic/>
+        <Zustand/>
       </div>
     </>
   );
