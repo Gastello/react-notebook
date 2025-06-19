@@ -1,5 +1,6 @@
 import Paragraph from "../../components/paragraph/Paragraph";
 import Topic from "../../components/topic/Topic";
+import CustomHook from "./CustomHook";
 import HookUseCallback from "./HookUseCallback";
 import HookUseContext from "./HookUseContext";
 import HookUseEffect from "./HookUseEffect";
@@ -27,6 +28,7 @@ export default function HooksTopic() {
       <HookUseContext />
       <HookUseLayoutEffect />
       <HookUseReducer />
+      <CustomHook/>
     </Topic>
   );
 }
