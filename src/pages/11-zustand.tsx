@@ -3,6 +3,7 @@ import Paragraph from "../components/paragraph/Paragraph";
 import Table from "../components/table/Table";
 import Title from "../components/title/Title";
 import Topic from "../components/topic/Topic";
+import ZustandExample from "../components/zustandExample/ZustandExample";
 
 export default function Zustand() {
   return (
@@ -17,7 +18,7 @@ export default function Zustand() {
       <Title text="Встановлення" />
       <Code code="npm i zustand" />
       <Paragraph>
-        Офіційний сайт: <a href="https://zustand-demo.pmnd.rs/">Zustand</a>
+        Офіційний сайт: <a target="_blank" rel="noreferrer" href="https://zustand-demo.pmnd.rs/">Zustand</a>
       </Paragraph>
       <Title text="Коли використовувати Zustand" />
       <Paragraph>
@@ -204,6 +205,9 @@ useEffect(() => {
   close: () => set({ isOpen: false }),
 }));`}
         />
+      </Topic>
+      <Topic title="✅ Приклади">
+            <ZustandExample/>
       </Topic>
     </Topic>
   );
